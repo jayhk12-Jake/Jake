@@ -36,6 +36,30 @@ npm run dev   # http://localhost:5173 (자동으로 /api를 4000 포트로 프�
 
 브라우저에서 http://localhost:5173 접속.
 
+## 아이폰에 앱처럼 설치하기 (PWA)
+
+이 대시보드는 PWA(Progressive Web App)로 구성되어 있어, 별도의 App Store 배포 없이
+아이폰 홈 화면에 앱처럼 설치할 수 있습니다.
+
+1. 대시보드를 **HTTPS로 접근 가능한 주소**에 배포합니다 (아래 "배포" 참고). 서비스
+   워커는 보안 컨텍스트(HTTPS 또는 localhost)에서만 동작합니다.
+2. 아이폰 **Safari**로 그 주소에 접속합니다. (크롬 등 다른 브라우저는 홈 화면 추가가
+   제한적입니다.)
+3. 하단 공유 버튼 → **"홈 화면에 추가"** 선택.
+4. 홈 화면에 생긴 아이콘을 실행하면 주소창 없이 전체화면 앱처럼 열립니다.
+
+로컬 네트워크(같은 Wi-Fi)에서 테스트만 하고 싶다면 `npm run dev -- --host`로 서버를
+띄우고 PC의 로컬 IP(예: `http://192.168.0.10:5173`)로 아이폰에서 접속하면 되지만,
+이 경우 HTTP라서 서비스 워커(오프라인 캐시)는 등록되지 않고 홈 화면 아이콘/전체화면
+실행만 됩니다.
+
+### 배포(예시)
+
+- 프론트엔드(`client/`): Vercel, Netlify, Cloudflare Pages 등에 `npm run build` 결과(`dist/`)를 정적 배포
+- 백엔드(`server/`): Render, Railway, Fly.io 등에 배포하고 `FRED_API_KEY` 환경변수 설정
+- 프론트엔드 빌드 시 `VITE_API_BASE=https://your-api-domain.com`을 지정하면
+  `client/src/api.js`가 해당 주소로 API를 호출합니다 (미지정 시 상대경로 `/api`, dev 프록시용).
+
 ## 대시보드 구성
 
 | 섹션 | 설명 | 데이터 소스 |

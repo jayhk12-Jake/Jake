@@ -87,7 +87,8 @@ body {
 .app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 24px 20px 64px;
+  padding: calc(24px + env(safe-area-inset-top)) calc(20px + env(safe-area-inset-right))
+    calc(64px + env(safe-area-inset-bottom)) calc(20px + env(safe-area-inset-left));
 }
 
 .app-header {
