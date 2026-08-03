@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: liquidity-dashboard-api
+    runtime: node
+    rootDir: server
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: FRED_API_KEY
+        sync: false
